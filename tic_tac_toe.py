@@ -4,20 +4,21 @@ import os
 
 # Function for beginning of each game to decide who goes first
 def choose_xo():
-    print(" ")
-    print(" ")
-    print("  Starting new game of Tic-Tac-Toe...")
-    print(" ")
-    input("  Decide who will play as X and who will play as O and then press enter when ready: ")
-    print("")
-    print("  Flipping a coin to see who goes first.")
-    print("")
+    player = ""
+    print("\n\n  Starting new game of Tic-Tac-Toe...")
+    input(f"\n  Decide who will play as {colorize('X')} and who will play as {colorize('O')} and then press enter when ready: ")
+    os.system('clear')
+    print("\n\n  Flipping a coin to see who goes first...\n")
     if random.randint(0, 1) == 0:
-        print("  X wins the coin toss and goes first!")
-        return "X"
+        #print("  X wins the coin toss and goes first!")
+        player = "X"
     else:
-        print("O wins the coin toss and goes first!")
-        return "O"
+        #print("O wins the coin toss and goes first!")
+        player = "O"
+
+    input(f"  Player {colorize(player)} won the toss, press enter to begin game: ")
+
+    return player
 
 # Colorizes player moves in the game board
 def colorize(text):
@@ -33,21 +34,18 @@ def colorize(text):
 # Function for printing the game board to the screen
 def print_board(pos_values):
     os.system('clear')
-    print(" ")
-    print(" ")
-    print("       |     |     ")
-    print(f"    {colorize(pos_values[1])}  |  {colorize(pos_values[2])}  |  {colorize(pos_values[3])}  ")
-    print("       |     |     ")
-    print("  -----------------")
-    print("       |     |     ")
-    print(f"    {colorize(pos_values[4])}  |  {colorize(pos_values[5])}  |  {colorize(pos_values[6])}  ")
-    print("       |     |     ")
-    print("  -----------------")
-    print("       |     |     ")
-    print(f"    {colorize(pos_values[7])}  |  {colorize(pos_values[8])}  |  {colorize(pos_values[9])}  ")
-    print("       |     |     ")
-    print(" ")
-    print(" ")
+    
+    print("\n\n       \u2503     \u2503     ")
+    print(f"    {colorize(pos_values[1])}  \u2503  {colorize(pos_values[2])}  \u2503  {colorize(pos_values[3])}  ")
+    print("       \u2503     \u2503     ")
+    print("  \u2501\u2501\u2501\u2501\u2501\u254b\u2501\u2501\u2501\u2501\u2501\u254b\u2501\u2501\u2501\u2501\u2501")
+    print("       \u2503     \u2503     ")
+    print(f"    {colorize(pos_values[4])}  \u2503  {colorize(pos_values[5])}  \u2503  {colorize(pos_values[6])}  ")
+    print("       \u2503     \u2503     ")
+    print("  \u2501\u2501\u2501\u2501\u2501\u254b\u2501\u2501\u2501\u2501\u2501\u254b\u2501\u2501\u2501\u2501\u2501")
+    print("       \u2503     \u2503     ")
+    print(f"    {colorize(pos_values[7])}  \u2503  {colorize(pos_values[8])}  \u2503  {colorize(pos_values[9])}  ")
+    print("       \u2503     \u2503     \n\n")
     
 
 # Function to prompt player to make a move
@@ -55,7 +53,7 @@ def player_move(pos_values,player):
     legal_moves = [int(x) for x in pos_values if x != "X" and x != "O" and x != "NA"]
     move_legal = False
     while not move_legal:
-        move = input(f"  Player {player} enter move {legal_moves} ")
+        move = input(f"  Player {colorize(player)} enter move {legal_moves} ")
         if move.isdigit() and int(move) in legal_moves:
             move_legal = True
         else:
@@ -98,7 +96,8 @@ def activate_game():
         os.system('clear')
 
         player = choose_xo()
-        
+
+              
         while not round_over:
             # Print game board
             print_board(pos_values)
@@ -110,13 +109,11 @@ def activate_game():
             if check_game(pos_values) == "winner":
                 round_over = True
                 print_board(pos_values)
-                print(f"  Player {player} wins!")
-                print(" ")
+                print(f"  Player {colorize(player)} wins!\n")
             elif check_game(pos_values) == "tied":
                 round_over = True
                 print_board(pos_values)
-                print("  It's a draw!")
-                print(" ")
+                print("  It's a draw!\n")
 
             # Change whose turn it is
             if player == "X":
@@ -128,6 +125,5 @@ def activate_game():
         if input("  Play again?  Enter Y to continue and anything else to quit: ").upper() != "Y":
             game_active = False
 
-        print(" ")
 
 activate_game()
