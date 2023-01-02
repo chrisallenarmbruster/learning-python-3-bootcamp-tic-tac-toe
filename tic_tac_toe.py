@@ -19,6 +19,16 @@ def choose_xo():
         print("O wins the coin toss and goes first!")
         return "O"
 
+# Colorizes player moves in the game board
+def colorize(text):
+    if text == "X":
+        text = "\033[92;1mX\033[00m"
+    elif text == "O":
+        text = "\033[91;1mO\033[00m"
+    else:
+        text = "\033[90m" + str(text) + "\033[00m" 
+    return text
+
 
 # Function for printing the game board to the screen
 def print_board(pos_values):
@@ -26,15 +36,15 @@ def print_board(pos_values):
     print(" ")
     print(" ")
     print("       |     |     ")
-    print(f"    {pos_values[1]}  |  {pos_values[2]}  |  {pos_values[3]}  ")
+    print(f"    {colorize(pos_values[1])}  |  {colorize(pos_values[2])}  |  {colorize(pos_values[3])}  ")
     print("       |     |     ")
     print("  -----------------")
     print("       |     |     ")
-    print(f"    {pos_values[4]}  |  {pos_values[5]}  |  {pos_values[6]}  ")
+    print(f"    {colorize(pos_values[4])}  |  {colorize(pos_values[5])}  |  {colorize(pos_values[6])}  ")
     print("       |     |     ")
     print("  -----------------")
     print("       |     |     ")
-    print(f"    {pos_values[7]}  |  {pos_values[8]}  |  {pos_values[9]}  ")
+    print(f"    {colorize(pos_values[7])}  |  {colorize(pos_values[8])}  |  {colorize(pos_values[9])}  ")
     print("       |     |     ")
     print(" ")
     print(" ")
