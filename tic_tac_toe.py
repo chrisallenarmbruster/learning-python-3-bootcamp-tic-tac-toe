@@ -25,7 +25,7 @@ def colorize(text):
     if text == "X":
         text = "\033[92;1mX\033[00m"
     elif text == "O":
-        text = "\033[91;1mO\033[00m"
+        text = " O\033[00m"
     else:
         text = "\033[90m" + str(text) + "\033[00m" 
     return text
