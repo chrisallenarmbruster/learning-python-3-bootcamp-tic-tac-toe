@@ -1,9 +1,18 @@
+'''
+
+Tic Tac Toe Game
+'''
+
 import random
 import os
 
 
-# Function for beginning of each game to decide who goes first
+
 def choose_xo():
+    '''
+    Function for beginning of each game to decide who goes first
+    '''
+
     player = ""
     print("\n\n  Starting new game of Tic-Tac-Toe...")
     input(f"\n  Decide who will play as {colorize('X')} and who will play as {colorize('O')} and then press enter when ready: ")
@@ -20,21 +29,27 @@ def choose_xo():
 
     return player
 
-# Colorizes player moves in the game board
 def colorize(text):
+    '''
+    Colorizes player moves in the game board
+    '''
+
     if text == "X":
         text = "\033[92;1mX\033[00m"
     elif text == "O":
-        text = " O\033[00m"
+        text = "\033[91;1mO\033[00m"
     else:
-        text = "\033[90m" + str(text) + "\033[00m" 
+        text = "\033[90m" + str(text) + "\033[00m"
     return text
 
 
-# Function for printing the game board to the screen
 def print_board(pos_values):
+    '''
+    Function for printing the game board to the screen
+    '''
+
     os.system('clear')
-    
+
     print("\n\n       \u2503     \u2503     ")
     print(f"    {colorize(pos_values[1])}  \u2503  {colorize(pos_values[2])}  \u2503  {colorize(pos_values[3])}  ")
     print("       \u2503     \u2503     ")
@@ -46,10 +61,12 @@ def print_board(pos_values):
     print("       \u2503     \u2503     ")
     print(f"    {colorize(pos_values[7])}  \u2503  {colorize(pos_values[8])}  \u2503  {colorize(pos_values[9])}  ")
     print("       \u2503     \u2503     \n\n")
-    
 
-# Function to prompt player to make a move
 def player_move(pos_values,player):
+    '''
+    Function to prompt player to make a move
+    '''
+
     legal_moves = [int(x) for x in pos_values if x != "X" and x != "O" and x != "NA"]
     move_legal = False
     while not move_legal:
@@ -60,13 +77,16 @@ def player_move(pos_values,player):
             print_board(pos_values)
             print("  Invalid input! Try again.")
     pos_values[int(move)] = player
-    return pos_values   
+    return pos_values
 
 
-# Function called after a move is made to determine if there is a winner or tie
 def check_game(pv):
+    '''
+    Function called after a move is made to determine if there is a winner or tie
+    '''
+
     if (
-        pv[1] == pv[2] == pv[3] or 
+        pv[1] == pv[2] == pv[3] or
         pv[4] == pv[5] == pv[6] or
         pv[7] == pv[8] == pv[9] or
         pv[1] == pv[4] == pv[7] or
@@ -77,27 +97,30 @@ def check_game(pv):
     ):
         return "winner"
 
-    elif len([int(x) for x in pv if x != "X" and x != "O" and x != "NA"]) == 0:
+    if len([int(x) for x in pv if x not in ('X', 'O', 'NA')]) == 0:
         return "tied"
-    else:
-        return "undetermined"
+
+    return "undetermined"
 
 
-# Main game loop
 def activate_game():
+    '''
+    Main game loop
+    '''
+
     game_active = True
-    
+
     while game_active:
         round_over = False
 
         # List to hold status of the game board, index 0 not used
         pos_values=["NA","1","2","3","4","5","6","7","8","9"]
-        
+
         os.system('clear')
 
         player = choose_xo()
 
-              
+
         while not round_over:
             # Print game board
             print_board(pos_values)
